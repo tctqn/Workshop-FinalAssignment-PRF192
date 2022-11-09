@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define tab printf("\n\t\t\t\t")
+#define tab printf("\n\t\t\t\t\t\t\t")
 
 // Declare Procedure
 
@@ -303,6 +303,8 @@ void GetChoiceOfOwner(int*NumOfFood,int*Rno,char*Names[],int*Price,int*Quantity,
 			break;
 		case 8:
 			WriteFile(NumOfFood,Rno,Names,Price,Quantity,mfg,exp);
+			MenuOwner(NumOfFood,Rno,Names,Price,Quantity,mfg,exp);
+			GetChoiceOfOwner(NumOfFood,Rno,Names,Price,Quantity,mfg,exp);
 			break;
 		case 9:
 			system("cls");
@@ -585,7 +587,7 @@ void AddNewFood(int*nums,int*Rno,int rno,
 				char*Names[],char getname[],
 				int*Price,int price,int*Quantity,int quantity,
 				char*mfg[],char getmfg[],char*exp[],char getexp[]) {
-	
+
 /* Dynamic allocate for each pointer of array of char pointer */
 	 Names[*nums] = malloc(strlen(getname) + 1);
 	   mfg[*nums] = malloc(strlen(getmfg) + 1);
@@ -600,6 +602,7 @@ void AddNewFood(int*nums,int*Rno,int rno,
 	strcpy( mfg[*nums], getmfg);
 	strcpy( exp[*nums], getexp);
 	(*nums)++;
+		
 }
 
 
@@ -951,7 +954,7 @@ void WriteFile (int*NumOfFood,int*Rno,char*Names[],int*Price,int*Quantity,char*m
 	char fName[26];
 	printf("Enter FileName: ");
 	gets(fName);
-	FILE* fp = fopen(fName, "a");
+	FILE* fp = fopen(fName, "w");
 	int i;
 	for(i = 0; i < *NumOfFood; i++) {
 		fprintf(fp, "%-10d %-20s %-10d %-10d %-20s %-20s \n",Rno[i], Names[i], Price[i], Quantity[i], mfg[i], exp[i]);
@@ -1036,6 +1039,7 @@ void WriteFile (int*NumOfFood,int*Rno,char*Names[],int*Price,int*Quantity,char*m
 /* Function 5,6: Delete */
 
 void DeleteFood(int*NumOfFood,int*Rno,char*Names[],int*Price,int*Quantity,char*mfg[],char*exp[],char getname[]) {
+
 	int i,check=0,j,a;
 	for(i=0;i<*NumOfFood;i++) {
 		a = strcmp(strlwr(Names[i]),strlwr(getname));
@@ -1133,14 +1137,14 @@ int main() {
 	int NumberOfFood=0,i;
 
 /* Declare dynamic array */
-	int*Rno = (int*)calloc(10,sizeof(int));
-	int*Price = (int*)calloc(10,sizeof(int));
-	int*Quantity = (int*)calloc(10,sizeof(int));
+	int*Rno = (int*)calloc(100,sizeof(int));
+	int*Price = (int*)calloc(100,sizeof(int));
+	int*Quantity = (int*)calloc(100,sizeof(int));
 	
 /* Declare array of char pointer */
-	char **Names = (char**)calloc(10,sizeof(char*));
-	char **MFG = (char**)calloc(10,sizeof(char*));
-	char **EXP = (char**)calloc(10,sizeof(char*));
+	char **Names = (char**)calloc(100,sizeof(char*));
+	char **MFG = (char**)calloc(100,sizeof(char*));
+	char **EXP = (char**)calloc(100,sizeof(char*));
 	
 
 /* Get value from file and store into each array */
